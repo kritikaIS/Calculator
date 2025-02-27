@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 40px auto;
+        }
+
+        .box {
+            background-color: #1f2128;
+            width: 30vw;
+            min-width: 30vw;
+            margin: 0px auto;
+            padding: 20px 10px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+
+        .cont {
+            width: 90%;
+        }
+
+        .screen {
+            width: 90%;
+            height: 20vh;
+            border: 0.5px solid #E8E8E8;
+            margin: 0px auto;
+            border-radius: 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            align-content: right;
+            margin-bottom: 10px;
+
+        }
+
+        .screen:hover {
+            background-color: #2C303D;
+        }
+
+        #label {
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+            padding: 20px;
+            font-size: 2em;
+            color: #E8E8E8;
+        }
+
+        .r1 {
+            padding: 0px 20px;
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+        }
+
+        .buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            max-width: 90px;
+            min-width: 50px;
+            height: 50px;
+            border-radius: 20px;
+            font-size: 1.5em;
+            margin: 5px;
+            cursor: pointer;
+            border: 0.5px solid black;
+
+        }
+
+        .buttons:hover {
+            background-color: #2C303D;
+            color: white;
+            border: 0.5px solid #E8E8E8;
+        }
+
+        @media (max-width:900px) {
+            .box {
+                width: 60vw;
+                max-width: 350px;
+            }
+
+            .buttons {
+                min-width: 45px;
+            }
+        }
+
+        @media (max-width:600px) {
+            .buttons {
+                font-size: 1.5em;
+                padding: 10px 20px;
+                border-radius: 20px;
+                max-width: 120px;
+            }
+
+            .box {
+                width: 90vw;
+            }
+
+            .cont {
+                width: 90%;
+            }
+
+            .r1 {
+                width: 90%;
+                padding: 0px 20px;
+            }
+
+            .screen {
+                width: 90%;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="screen">
+            <label for="calculation" id="label">0</label>
+        </div>
+        <div class="cont">
+            <div class="r1">
+                <button type="button" id="button1" class="buttons">(</button>
+                <button type="button" id="button2" class="buttons">)</button>
+                <button type="button" id="button3" class="buttons">%</button>
+                <button type="button" id="button4" class="buttons">AC</button>
+
+            </div>
+            <div class="r1">
+                <button type="button" id="button1" class="buttons">7</button>
+                <button type="button" id="button2" class="buttons">8</button>
+                <button type="button" id="button3" class="buttons">9</button>
+                <button type="button" id="button4" class="buttons">/</button>
+
+            </div>
+            <div class="r1">
+                <button type="button" id="button1" class="buttons">4</button>
+                <button type="button" id="button2" class="buttons">5</button>
+                <button type="button" id="button3" class="buttons">6</button>
+                <button type="button" id="button4" class="buttons">*</button>
+
+            </div>
+            <div class="r1">
+                <button type="button" id="button1" class="buttons">1</button>
+                <button type="button" id="button2" class="buttons">2</button>
+                <button type="button" id="button3" class="buttons">3</button>
+                <button type="button" id="button4" class="buttons">-</button>
+
+            </div>
+            <div class="r1">
+                <button type="button" id="button1" class="buttons">0</button>
+                <button type="button" id="button2" class="buttons">.</button>
+                <button style="background-color: rgb(102, 169, 245); color: black; border: 0.5px solid black;"
+                    type="button" id="button3" class="buttons">=</button>
+                <button type="button" id="button4" class="buttons">+</button>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        let buttons = document.querySelectorAll(".buttons");
+        let screen = document.getElementById("label");
+        let expression = "";
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                let value = button.textContent;
+                if (value === "AC") {
+                    expression = "";
+                    screen.textContent = "0";
+                }
+                else if (value === "=") {
+                    try {
+                        if(screen.textContent==="0"){
+                            screen.textContent="0";
+                        }
+                        else{
+                            expression = eval(expression).toString()
+                            screen.textContent = expression;
+                        } 
+
+                    } catch (error) {
+                        screen.textContent = "ERROR";
+                        expression = "";
+                    }
+                } else {
+                    if (screen.textContent === "0" || screen.textContent==="ERROR") {
+                        expression = value;
+                    } else {
+                        expression += value;
+                    }
+                    screen.textContent = expression;
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>
